@@ -202,7 +202,8 @@ def save_tasks(df):
     df.to_excel(EXCEL_FILE,index=False)
 
 def get_week_start(date):
-    return date - timedelta(days=date.weekday())
+    return date - timedelta(days=date.weekday() + 1 if date.weekday() != 6 else 0)
+
 
 def generate_task_id(df, week_start):
     existing = df[df['WeekStart']==week_start.strftime('%Y-%m-%d')]['TaskID'].tolist()
